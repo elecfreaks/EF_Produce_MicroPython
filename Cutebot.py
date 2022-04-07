@@ -33,7 +33,7 @@ class CUTEBOT(object):
         if left_wheel_speed > 100 or left_wheel_speed < -100:
             raise ValueError('speed error,-100~100')
         if right_wheel_speed > 100 or right_wheel_speed < -100:
-            raise ValueError('select motor error,1,2,3,4')
+            raise ValueError('speed error,-100~100')
         left_direction = 0x02 if left_wheel_speed > 0 else 0x01
         right_direction = 0x02 if right_wheel_speed > 0 else 0x01
         left_wheel_speed = left_wheel_speed if left_wheel_speed > 0 else left_wheel_speed * -1
@@ -72,7 +72,7 @@ class CUTEBOT(object):
         if unit == 0:
             return distance
         elif unit == 1:
-            return distance / 254
+            return round(distance/30.48,2)
 
     def get_tracking(self):
         """
