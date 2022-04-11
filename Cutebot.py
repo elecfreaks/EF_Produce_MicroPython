@@ -102,11 +102,11 @@ class CUTEBOT(object):
             servo (number): 选择第几个舵机（伺服电机）1,2
             angle (number): 设置舵机角度 0~180
         """
-        if servo > 7 or servo < 0:
-            raise ValueError('select servo error')
+        if servo > 2 or servo < 1:
+            raise ValueError('select servo error,1,2')
         if angle > 180 or angle < 0:
             raise ValueError('angle error,0~180')
-        i2c.write(CUTEBOT_ADDR, bytearray([servo + 5, angle, 0, 0]))
+        i2c.write(CUTEBOT_ADDR, bytearray([servo + 4, angle, 0, 0]))
 
 
 if __name__ == '__main__':
