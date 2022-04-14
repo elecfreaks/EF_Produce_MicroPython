@@ -68,7 +68,7 @@ class CUTEBOT(object):
         self.__pin_t.write_digital(0)
         ts = time_pulse_us(self.__pin_e, 1, 25000)
 
-        distance = ts * 9 / 6 / 58
+        distance = round(ts * 34 / 2 / 1000)
         if unit == 0:
             return distance
         elif unit == 1:
@@ -82,13 +82,15 @@ class CUTEBOT(object):
                 01 左白右黑
                 11 均在黑色
         """
-        if self.__pinL.read_digital() == 1 and self.__pinR.read_digital() == 1:
+        left = self.__pinL.read_digital()
+        right = self.__pinR.read_digital()
+        if left == 1 and right == 1:
             return 00
-        elif self.__pinL.read_digital() == 0 and self.__pinR.read_digital() == 1:
+        elif left == 0 and right == 1:
             return 10
-        elif self.__pinL.read_digital() == 1 and self.__pinR.read_digital() == 0:
+        elif left == 1 and right == 0:
             return 1
-        elif self.__pinL.read_digital() == 0 and self.__pinR.read_digital() == 0:
+        elif left == 0 and right == 0:
             return 11
         else:
             print("Unknown ERROR")
@@ -114,4 +116,8 @@ if __name__ == '__main__':
 
     ct.set_motors_speed(1, 100)
     ct.set_car_light(left, 90, 90, 90)
-    ct.get_distance()
+    distance=ct.get_distance()
+    while(True):
+        display.scroll(distance)
+        distance=ct.get_distance()
+        sleep(1000)
